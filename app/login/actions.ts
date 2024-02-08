@@ -48,16 +48,17 @@ export async function signup(formData: FormData) {
   redirect('/')
 }
 
-// export async function signout() {
-//     const cookieStore = cookies()
-//     const supabase = createClient(cookieStore)
+export async function signout() {
+    const cookieStore = cookies()
+    const supabase = createClient(cookieStore)
 
-//     const { error } = await supabase.auth.signOut()
+    const { error } = await supabase.auth.signOut()
 
-//     if (error) {
-//      console.log("Error while logging out user:", error);
-//     }
+    if (error) {
+     console.log("Error while logging out user:", error);
+     return
+    }
 
-//     // revalidatePath('/', 'layout')
-//     // redirect('/')
-// }
+    // revalidatePath('/', 'layout')
+    redirect('/')
+}
