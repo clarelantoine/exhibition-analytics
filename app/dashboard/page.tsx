@@ -2,6 +2,7 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 import { createClient } from '@/utils/supabase/server'
+import LogoutButton from '../auth/components/LogoutButton'
 
 export default async function DashboardPage() {
   const cookieStore = cookies()
@@ -12,8 +13,10 @@ export default async function DashboardPage() {
     redirect('/')
   }
 
-  return <>
-    <p>Hello {data.user.email}</p>
-    <button>logout</button>
-  </>
+  return (
+    <div className='dashboard'>
+      <p>Hello {data.user.email}</p>
+      <LogoutButton />
+    </div>
+  )
 }

@@ -5,7 +5,6 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 import { createClient } from '@/utils/supabase/server'
-import { toast } from '@/components/ui/use-toast'
 
 export async function login(formData: FormData) {
   const cookieStore = cookies()
@@ -21,11 +20,11 @@ export async function login(formData: FormData) {
   const { error } = await supabase.auth.signInWithPassword(data)
 
   if (error) {
-    return toastMessage(error)
+    return error
   }
 
   revalidatePath('/', 'layout')
-  redirect('/')
+  redirect('/dashboard')
 }
 
 export async function signup(formData: FormData) {
@@ -61,11 +60,4 @@ export const signout = async () => {
   }
 
   redirect('/login')
-}
-
-export const toastMessage = message => {
-  return toast({
-    title: 'Scheduled: Catch up',
-    description: 'Friday, February 10, 2023 at 5:57 PM',
-  })
 }
