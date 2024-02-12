@@ -2,6 +2,9 @@ import './globals.css'
 import { Inter } from 'next/font/google'
 import { cn } from '@/lib/utils'
 import { Toaster } from '@/components/ui/toaster'
+import Header from '@/components/Header'
+import Footer from '@/components/Footer'
+import { Separator } from '@/components/ui/separator'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -17,9 +20,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang='en'>
       <body
-        className={cn('min-h-screen antialiased font-inter', inter.variable)}
+        className={cn(
+          'flex flex-col min-h-screen antialiased font-inter',
+          inter.variable,
+        )}
       >
-        <main className='container'>{children}</main>
+        <Header />
+        <main className='container px-5'>{children}</main>
+        <Footer />
         <Toaster />
       </body>
     </html>
