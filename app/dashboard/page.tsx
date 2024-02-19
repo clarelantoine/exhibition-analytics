@@ -12,7 +12,7 @@ import {
   NavigationMenuTrigger,
   NavigationMenuViewport,
 } from '@/components/ui/navigation-menu'
-import Sidebar from '@/components/Sidebar'
+import Sidebar from '@/components/SidebarNav'
 
 export default async function DashboardPage() {
   const cookieStore = cookies()
