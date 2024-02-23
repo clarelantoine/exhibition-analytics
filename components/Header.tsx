@@ -23,8 +23,8 @@ export default async function Header() {
   } = await supabase.auth.getUser()
 
   return (
-    <header className='container px-5'>
-      <div className='flex flex-row items-center justify-between py-5 h-20'>
+    <header>
+      <div className='container flex h-16 items-center justify-between py-4'>
         <p className='text-xl font-medium tracking-tight'>EventAnaytics ™</p>
 
         {user && (

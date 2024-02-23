@@ -14,7 +14,7 @@ export default async function DashboardPage() {
 
   return (
     <div className=' h-full'>
-      <h1 className='text-3xl font-semibold tracking-tight'>Dashboard</h1>
+      <h1 className='text-3xl font-semibold tracking-tight'>Welcome Clarel!</h1>
     </div>
   )
 }
