@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import CreateQRButton from './components/CreateQRButton'
 import { getQrCode } from './actions'
 import Image from 'next/image'
+import { CreateQrCodeDialogForm } from './components/CreateQrCodeDialogForm'
 
 interface qrCodeData {
   displayName: string
@@ -34,6 +35,7 @@ export default function QrCodePage() {
     <div className=' h-full'>
       <h1 className='text-3xl font-semibold tracking-tight'>QR Code</h1>
       <CreateQRButton />
+      <CreateQrCodeDialogForm />
 
       {qrCode && (
         <Image

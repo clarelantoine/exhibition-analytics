@@ -10,9 +10,10 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { createClient } from '@/utils/supabase/server'
-import { User } from 'lucide-react'
+import { LayoutDashboard, User } from 'lucide-react'
 import { cookies } from 'next/headers'
 import { Separator } from './ui/separator'
+import Link from 'next/link'
 
 export default async function Header() {
   const cookieStore = cookies()
@@ -48,9 +49,17 @@ export default async function Header() {
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuGroup>
-                <DropdownMenuItem className='text-sm'>
-                  <User className='mr-2 h-4 w-4' />
-                  <span>Profile</span>
+                <DropdownMenuItem className='text-sm' asChild>
+                  <Link href='/'>
+                    <User className='mr-2 h-4 w-4' />
+                    <span>Profile</span>
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem className='text-sm' asChild>
+                  <Link href='/dashboard'>
+                    <LayoutDashboard className='mr-2 h-4 w-4' />
+                    <span>Dashboard</span>
+                  </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <LogoutButton />
