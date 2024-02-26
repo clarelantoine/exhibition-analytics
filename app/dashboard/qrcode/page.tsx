@@ -28,7 +28,7 @@ export default function QrCodePage() {
 
   useEffect(() => {
     handleGetQrCode()
-  })
+  }, [])
 
   return (
     <div className=' h-full'>

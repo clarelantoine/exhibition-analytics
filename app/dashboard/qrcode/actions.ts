@@ -31,7 +31,7 @@ export const createQrCode = async () => {
 
   const data = await res.json()
 
-  revalidatePath('/dashboard/qrcode')
+  //   revalidatePath('/dashboard/qrcode')
   return data
 }
 
@@ -44,6 +44,8 @@ export const getQrCode = async (id: string) => {
   })
 
   const data = await res.json()
+
   revalidatePath('/dashboard/qrcode')
+
   return data
 }
