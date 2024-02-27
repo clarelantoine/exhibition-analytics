@@ -1,4 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
+
+'use client'
+
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -12,8 +15,17 @@ import {
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Plus } from 'lucide-react'
+import { creatQrAction } from '../actions'
+import { useFormState } from 'react-dom'
+import SubmitButton from '@/components/SubmitButton'
+
+const initialState = {
+  message: '',
+}
 
 export function CreateQrCodeDialogForm() {
+  const [state, formAction] = useFormState(creatQrAction, initialState)
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -22,36 +34,37 @@ export function CreateQrCodeDialogForm() {
         </Button>
       </DialogTrigger>
       <DialogContent className='sm:max-w-[425px]'>
-        <DialogHeader>
-          <DialogTitle>Create QR code</DialogTitle>
-          <DialogDescription>
-            Fill the below fields to create a new QR code. Click save when
-            you're done.
-          </DialogDescription>
-        </DialogHeader>
-        <div className='grid gap-4 py-4'>
-          <div className='grid grid-cols-4 items-center gap-4'>
-            <Label htmlFor='name' className='text-left'>
-              Name
-            </Label>
-            <Input
-              id='name'
-              //   defaultValue='Pedro Duarte'
-              className='col-span-4'
-            />
-            <Label htmlFor='name' className='text-left'>
-              Link
-            </Label>
-            <Input
-              id='name'
-              //   defaultValue='Pedro Duarte'
-              className='col-span-4'
-            />
+        <form action={formAction} className='grid gap-4'>
+          <DialogHeader>
+            <DialogTitle>Create QR code</DialogTitle>
+            <DialogDescription>
+              Please complete the fields below to generate a new QR code. Click
+              "save" once finished.
+            </DialogDescription>
+          </DialogHeader>
+          <div className='grid gap-4 py-4'>
+            <div className='grid grid-cols-4 items-center gap-4'>
+              <Label htmlFor='name'>Name</Label>
+              <Input
+                id='name'
+                name='name'
+                placeholder='Display name'
+                className='col-span-4'
+              />
+              <Label htmlFor='name'>Link</Label>
+              <Input
+                id='url'
+                name='url'
+                placeholder='QR code link'
+                className='col-span-4'
+              />
+            </div>
           </div>
-        </div>
-        <DialogFooter>
-          <Button type='submit'>Save</Button>
-        </DialogFooter>
+          <DialogFooter>
+            <SubmitButton />
+            <p>{state?.message}</p>
+          </DialogFooter>
+        </form>
       </DialogContent>
     </Dialog>
   )
