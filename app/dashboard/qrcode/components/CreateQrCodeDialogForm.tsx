@@ -18,6 +18,7 @@ import { Plus } from 'lucide-react'
 import { creatQrAction } from '../actions'
 import { useFormState } from 'react-dom'
 import SubmitButton from '@/components/SubmitButton'
+import { useState } from 'react'
 
 const initialState = {
   message: '',

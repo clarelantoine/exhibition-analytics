@@ -4,6 +4,7 @@ import { Loader2 } from 'lucide-react'
 
 export default function SubmitButton() {
   const { pending } = useFormStatus()
+
   return (
     <Button type='submit' disabled={pending}>
       {pending ? (
