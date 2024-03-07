@@ -1,6 +1,6 @@
 'use client'
 
-import { CreateQrCodeDialogForm } from './components/CreateQrCodeDialogForm'
+import { NewQRForm } from './components/NewQRForm'
 import QRList from './components/QRList'
 
 export default function QrCodePage() {
@@ -13,7 +13,7 @@ export default function QrCodePage() {
             Create and manage QR codes.
           </p>
         </div>
-        <CreateQrCodeDialogForm />
+        <NewQRForm />
       </div>
       <QRList />
     </div>

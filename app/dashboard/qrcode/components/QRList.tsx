@@ -63,7 +63,7 @@ export default function QRList() {
 
         // push qr details to array
         qrDetailsArray.push({
-          id: id,
+          id: qrItemDB.qr_id,
           name: display_name,
           image: png,
           url: qr_data,

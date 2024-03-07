@@ -15,17 +15,19 @@ import {
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Plus } from 'lucide-react'
-import { creatQrAction } from '../actions'
 import { useFormState } from 'react-dom'
 import SubmitButton from '@/components/SubmitButton'
 import { useState } from 'react'
+import { creatQrAction } from '../actions/createQR.action'
+import { Message } from '@/utils/interface/qrInterface'
 
-const initialState = {
+const initialMessage: Message = {
   message: '',
+  error: false,
 }
 
-export function CreateQrCodeDialogForm() {
-  const [state, formAction] = useFormState(creatQrAction, initialState)
+export function NewQRForm() {
+  const [state, formAction] = useFormState(creatQrAction, initialMessage)
 
   return (
     <Dialog>
