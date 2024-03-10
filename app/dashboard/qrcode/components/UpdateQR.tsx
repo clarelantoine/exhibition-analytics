@@ -20,6 +20,7 @@ import { useEffect, useState } from 'react'
 import { Message, QrDetails } from '@/utils/interface/qrInterface'
 import { updatedQr } from '../actions/updateQR.action'
 import { toast } from '@/components/ui/use-toast'
+import { useRouter } from 'next/navigation'
 
 // initial message
 const initialMessage: Message = {
@@ -30,6 +31,7 @@ const initialMessage: Message = {
 export default function UpdateQr({ item }: { item: QrDetails }) {
   const [state, formAction] = useFormState(updatedQr, initialMessage)
   const [open, setOpen] = useState(false)
+  const router = useRouter()
 
   // setup form fields
   const [formFields, setFormFields] = useState<QrDetails>(item)
@@ -54,7 +56,7 @@ export default function UpdateQr({ item }: { item: QrDetails }) {
       // handle display of dialog
       setOpen(state?.error)
     }
-  }, [state])
+  }, [state, router])
 
   // useEffect(() => {
   //   console.log(formFields)

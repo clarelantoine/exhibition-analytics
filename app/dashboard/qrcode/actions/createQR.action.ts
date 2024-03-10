@@ -7,6 +7,7 @@ import { z } from 'zod'
 import { cookies } from 'next/headers'
 import { createClient } from '@/utils/supabase/server'
 import { InsertNewQRData, Message } from '@/utils/interface/qrInterface'
+import { getQr } from './getQR.action'
 
 export async function creatQrAction(
   prevState: Message,
@@ -72,5 +73,6 @@ export async function creatQrAction(
   }
 
   revalidatePath('/dashboard/qrcode')
+
   return { message: 'qr code created' }
 }
