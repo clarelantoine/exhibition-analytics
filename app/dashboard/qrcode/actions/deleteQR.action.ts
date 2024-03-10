@@ -6,12 +6,12 @@ import { revalidatePath } from 'next/cache'
 import { cookies } from 'next/headers'
 
 export const deleteQR = async (id: string): Promise<Message> => {
-  // initate supabase
+  // initate supabase client
   const cookieStore = cookies()
   const supabase = createClient(cookieStore)
 
-  // delete from hovercode
   try {
+    // delete from hovercode
     const res = await fetch(
       `https://hovercode.com/api/v2/hovercode/${id}/delete/`,
       {
@@ -40,6 +40,6 @@ export const deleteQR = async (id: string): Promise<Message> => {
     revalidatePath('/dashboard/qrcode')
     return { message: 'QR code has successfully been deleted.' }
   } catch (error) {
-    console.log('Error while deleting QR from hovercode', error)
+    console.log('Error while deleting QR', error)
   }
 }

@@ -7,9 +7,9 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import Image from 'next/image'
-import EditQR from './EditQR'
 import DeleteQR from './DeleteQR'
 import { QrDetails } from '@/utils/interface/qrInterface'
+import UpdateQr from './UpdateQR'
 
 export default function QRCard({ item }: { item: QrDetails }) {
   return (
@@ -31,7 +31,7 @@ export default function QRCard({ item }: { item: QrDetails }) {
           <CardDescription>{item.url}</CardDescription>
         </CardContent>
         <CardFooter className='flex justify-between'>
-          <EditQR item={item} />
+          <UpdateQr item={item} />
           <DeleteQR id={item.id} />
         </CardFooter>
       </Card>

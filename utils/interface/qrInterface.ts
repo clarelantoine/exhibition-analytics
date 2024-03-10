@@ -15,3 +15,10 @@ export interface QrDetails {
   image: string
   url: string
 }
+
+export type QRData = {
+  readonly _id: string
+  name: string
+  url: string
+  image?: string
+}
