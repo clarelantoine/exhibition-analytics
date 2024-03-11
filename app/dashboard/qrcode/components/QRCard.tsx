@@ -8,10 +8,10 @@ import {
 } from '@/components/ui/card'
 import Image from 'next/image'
 import DeleteQR from './DeleteQR'
-import { QrDetails } from '@/utils/interface/qrInterface'
+import { DbQrData } from '@/utils/interface/qrInterface'
 import UpdateQr from './UpdateQR'
 
-export default function QRCard({ item }: { item: QrDetails }) {
+export default function QRCard({ item }: { item: DbQrData }) {
   return (
     <Card className=''>
       <CardHeader>
@@ -20,18 +20,18 @@ export default function QRCard({ item }: { item: QrDetails }) {
           src={item.image}
           width={1000}
           height={1000}
-          alt={item.image}
+          alt={item.display_name}
         />
       </CardHeader>
       <CardContent className=' text-center'>
         <CardTitle className='tracking-tight text-base font-medium'>
-          {item.name}
+          {item.display_name}
         </CardTitle>
         <CardDescription>{item.url}</CardDescription>
       </CardContent>
       <CardFooter className='flex justify-between'>
         <UpdateQr item={item} />
-        <DeleteQR id={item.id} />
+        <DeleteQR id={item.qr_id} />
       </CardFooter>
     </Card>
   )

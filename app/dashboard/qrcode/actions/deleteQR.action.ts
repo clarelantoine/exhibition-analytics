@@ -36,7 +36,6 @@ export const deleteQR = async (id: string): Promise<Message> => {
     }
 
     // success message & revalidate path dasboard/qrcode
-    console.log('Deleted QR', res.status, res.ok)
     revalidatePath('/dashboard/qrcode')
     return { message: 'QR code has successfully been deleted.' }
   } catch (error) {

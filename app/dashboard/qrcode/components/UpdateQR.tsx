@@ -17,10 +17,9 @@ import { Label } from '@/components/ui/label'
 import { useFormState } from 'react-dom'
 import SubmitButton from '@/components/SubmitButton'
 import { useEffect, useState } from 'react'
-import { Message, QrDetails } from '@/utils/interface/qrInterface'
+import { DbQrData, Message, QrDetails } from '@/utils/interface/qrInterface'
 import { updatedQr } from '../actions/updateQR.action'
 import { toast } from '@/components/ui/use-toast'
-import { useRouter } from 'next/navigation'
 
 // initial message
 const initialMessage: Message = {
@@ -28,14 +27,13 @@ const initialMessage: Message = {
   error: null,
 }
 
-export default function UpdateQr({ item }: { item: QrDetails }) {
+export default function UpdateQr({ item }: { item: DbQrData }) {
   const [state, formAction] = useFormState(updatedQr, initialMessage)
   const [open, setOpen] = useState(false)
-  const router = useRouter()
 
   // setup form fields
-  const [formFields, setFormFields] = useState<QrDetails>(item)
-  const { name, url, id } = formFields
+  const [formFields, setFormFields] = useState<DbQrData>(item)
+  const { display_name, url, qr_id } = formFields
 
   // handle form fields change
   const handleChange = (e: { target: HTMLInputElement }) => {
@@ -56,11 +54,7 @@ export default function UpdateQr({ item }: { item: QrDetails }) {
       // handle display of dialog
       setOpen(state?.error)
     }
-  }, [state, router])
-
-  // useEffect(() => {
-  //   console.log(formFields)
-  // }, [formFields])
+  }, [state])
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -78,14 +72,14 @@ export default function UpdateQr({ item }: { item: QrDetails }) {
           </DialogHeader>
           <div className='grid gap-4 py-4'>
             <div className='grid grid-cols-4 items-center gap-4'>
-              <input type='hidden' id='id' name='id' value={id} />
+              <input type='hidden' id='qr_id' name='qr_id' value={qr_id} />
               <Label htmlFor='name'>Name</Label>
               <Input
-                id='name'
-                name='name'
+                id='display_name'
+                name='display_name'
                 placeholder='Display name'
                 className='col-span-4'
-                value={name}
+                value={display_name}
                 onChange={handleChange}
               />
               <Label htmlFor='name'>Link</Label>

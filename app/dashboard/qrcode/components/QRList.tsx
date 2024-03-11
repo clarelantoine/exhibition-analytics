@@ -1,9 +1,7 @@
 'use client'
 
-import { memo, useCallback, useEffect, useState } from 'react'
 import QRCard from './QRCard'
-import { getQr } from '../actions/getQR.action'
-import { QrDetails } from '@/utils/interface/qrInterface'
+import { DbQrData } from '@/utils/interface/qrInterface'
 
 // const QRData = [
 //   {
@@ -43,7 +41,7 @@ import { QrDetails } from '@/utils/interface/qrInterface'
 //   },
 // ]
 
-const QRList = ({ items }: { items: QrDetails[] }) => {
+const QRList = ({ items }: { items: DbQrData[] }) => {
   return items.length > 0 ? (
     <div className='grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
       {items.map(item => (

@@ -22,3 +22,24 @@ export type QRData = {
   url: string
   image?: string
 }
+
+export type HoverodeCreateQr = {
+  workspace: string
+  qr_data: string
+  dynamic: boolean
+  display_name: string
+  frame: string
+  pattern: string
+  generate_png: boolean
+}
+
+export type DbQrData = {
+  readonly id?: number
+  user_id: string
+  qr_id: string
+  display_name: string
+  url: string
+  image: string
+  created_at?: string
+  updated_on?: string
+}

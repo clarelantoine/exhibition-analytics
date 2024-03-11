@@ -14,7 +14,7 @@ export async function updatedQr(
   const cookieStore = cookies()
   const supabase = createClient(cookieStore)
 
-  //   validate qr form data
+  // validate qr form data
   const schema = z.object({
     id: z.string().min(1),
     name: z.string().min(1),
@@ -22,13 +22,14 @@ export async function updatedQr(
   })
 
   const parse = schema.safeParse({
-    id: formData.get('id'),
-    name: formData.get('name'),
+    id: formData.get('qr_id'),
+    name: formData.get('display_name'),
     url: formData.get('url'),
   })
 
   if (!parse.success) {
-    return { message: 'Failed to update qr code' }
+    // return { message: 'Failed to update qr code' }
+    throw new Error('form validation error')
   }
 
   try {
@@ -58,9 +59,9 @@ export async function updatedQr(
     }
 
     // update qr code in db
-    const { error, data: dbData } = await supabase
+    const { error } = await supabase
       .from('qrcode')
-      .update({ display_name: data.display_name })
+      .update({ display_name: data.display_name, url: data.qr_data })
       .eq('qr_id', parse.data.id)
 
     // handle error editing in db
