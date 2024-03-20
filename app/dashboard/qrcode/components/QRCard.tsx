@@ -9,7 +9,7 @@ import {
 import Image from 'next/image'
 import DeleteQR from './DeleteQR'
 import { DbQrData } from '@/utils/interface/qrInterface'
-import UpdateQr from './UpdateQR'
+import UpdateQrForm from './UpdateQRForm'
 
 export default function QRCard({ item }: { item: DbQrData }) {
   return (
@@ -30,7 +30,7 @@ export default function QRCard({ item }: { item: DbQrData }) {
         <CardDescription>{item.url}</CardDescription>
       </CardContent>
       <CardFooter className='flex justify-between'>
-        <UpdateQr item={item} />
+        <UpdateQrForm item={item} />
         <DeleteQR id={item.qr_id} />
       </CardFooter>
     </Card>

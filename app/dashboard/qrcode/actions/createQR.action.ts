@@ -10,10 +10,10 @@ import {
   Message,
 } from '@/utils/interface/qrInterface'
 
-export async function creatQr(
-  prevState: Message,
-  formData: FormData,
-): Promise<Message> {
+export async function createQr(formData: {
+  name?: string
+  url?: string
+}): Promise<Message> {
   // initate supabase client
   const cookieStore = cookies()
   const supabase = createClient(cookieStore)
@@ -23,26 +23,11 @@ export async function creatQr(
     data: { user },
   } = await supabase.auth.getUser()
 
-  // validate qr form data
-  const schema = z.object({
-    name: z.string().min(1),
-    url: z.string().min(1),
-  })
-  const parse = schema.safeParse({
-    name: formData.get('name'),
-    url: formData.get('url'),
-  })
-
-  if (!parse.success) {
-    // return { message: 'Failed to create qr code' }
-    throw new Error('form validation error')
-  }
-
   // Hovercode qr code config
   const body: HoverodeCreateQr = {
     workspace: process.env.NEXT_PUBLIC_HOVERCODE_WORKSPACE_ID!,
-    qr_data: parse.data.url,
-    display_name: parse.data.name,
+    qr_data: formData?.url,
+    display_name: formData?.name,
     dynamic: true,
     generate_png: true,
     frame: 'border',

@@ -2,10 +2,6 @@
 
 'use client'
 
-import { toast } from '@/components/ui/use-toast'
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -18,10 +14,8 @@ import {
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Plus } from 'lucide-react'
-import SubmitButton from '@/components/SubmitButton'
-import { useEffect, useState } from 'react'
-import { createQr } from '../actions/createQR.action'
 
+import { toast } from '@/components/ui/use-toast'
 import {
   Form,
   FormControl,
@@ -30,26 +24,31 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
+import { z } from 'zod'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import SubmitButton from '@/components/SubmitButton'
+import { createSurvey } from '../actions/createSurvey.action'
+import { useEffect, useState } from 'react'
 
-// define form scheme
 const FormSchema = z.object({
-  name: z.string().min(1, { message: 'Name is required' }),
-  url: z.string().min(1, { message: 'Url is required' }),
+  title: z.string().min(1, { message: 'Title is required' }),
+  description: z.string().min(1, { message: 'Description is required' }),
 })
 
-export function CreateQRForm() {
+export function CreateSurveyForm() {
   const [open, setOpen] = useState(false)
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      name: '',
-      url: '',
+      title: '',
+      description: '',
     },
   })
 
   async function onSubmit(formData: z.infer<typeof FormSchema>) {
-    const result = await createQr(formData)
+    const result = await createSurvey(formData)
 
     if (result?.message) {
       toast({
@@ -75,14 +74,14 @@ export function CreateQRForm() {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button>
-          <Plus className='mr-2 h-4 w-4' /> New QR Code
+          <Plus className='mr-2 h-4 w-4' /> New Survey
         </Button>
       </DialogTrigger>
       <DialogContent className='sm:max-w-[425px]'>
         <DialogHeader>
-          <DialogTitle>Create QR code</DialogTitle>
+          <DialogTitle>Create a survey</DialogTitle>
           <DialogDescription>
-            Please complete the fields below to generate a new QR code. Click
+            Please complete the fields below to create a new survey. Click
             "save" once finished.
           </DialogDescription>
         </DialogHeader>
@@ -92,12 +91,12 @@ export function CreateQRForm() {
             <div className='grid gap-4 py-4'>
               <FormField
                 control={form.control}
-                name='name'
+                name='title'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Name</FormLabel>
+                    <FormLabel>Title</FormLabel>
                     <FormControl>
-                      <Input placeholder='Display name' {...field} />
+                      <Input placeholder='Title' {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -106,12 +105,12 @@ export function CreateQRForm() {
 
               <FormField
                 control={form.control}
-                name='url'
+                name='description'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Url</FormLabel>
+                    <FormLabel>Description</FormLabel>
                     <FormControl>
-                      <Input placeholder='Qr code link' {...field} />
+                      <Input placeholder='Description' {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

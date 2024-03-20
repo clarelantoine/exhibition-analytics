@@ -1,41 +1,24 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
-import { z } from 'zod'
+import { string, z } from 'zod'
 import { cookies } from 'next/headers'
 import { createClient } from '@/utils/supabase/server'
 import { Message } from '@/utils/interface/qrInterface'
 
-export async function updatedQr(
-  prevState: Message,
-  formData: FormData,
-): Promise<Message> {
+export async function updateQr(formData: {
+  id?: string
+  name?: string
+  url?: string
+}): Promise<Message> {
   // initate supabase client
   const cookieStore = cookies()
   const supabase = createClient(cookieStore)
 
-  // validate qr form data
-  const schema = z.object({
-    id: z.string().min(1),
-    name: z.string().min(1),
-    url: z.string().min(1),
-  })
-
-  const parse = schema.safeParse({
-    id: formData.get('qr_id'),
-    name: formData.get('display_name'),
-    url: formData.get('url'),
-  })
-
-  if (!parse.success) {
-    // return { message: 'Failed to update qr code' }
-    throw new Error('form validation error')
-  }
-
   try {
     // update qr code on hovercode
     const res = await fetch(
-      `https://hovercode.com/api/v2/hovercode/${parse.data.id}/update/`,
+      `https://hovercode.com/api/v2/hovercode/${formData?.id}/update/`,
       {
         method: 'PUT',
         headers: {
@@ -44,8 +27,8 @@ export async function updatedQr(
             .NEXT_PUBLIC_HOVERCODE_API_TOKEN!}`,
         },
         body: JSON.stringify({
-          qr_data: parse.data.url,
-          display_name: parse.data.name,
+          qr_data: formData?.url,
+          display_name: formData?.name,
         }),
       },
     )
@@ -62,7 +45,7 @@ export async function updatedQr(
     const { error } = await supabase
       .from('qrcode')
       .update({ display_name: data.display_name, url: data.qr_data })
-      .eq('qr_id', parse.data.id)
+      .eq('qr_id', formData.id)
 
     // handle error editing in db
     if (error) {
