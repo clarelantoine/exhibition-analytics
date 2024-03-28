@@ -1,6 +1,7 @@
 // 'use client'
 
 import { CreateSurveyForm } from './components/CreateSurveyForm'
+import SurveyList from './components/SurveyList'
 
 // import { useEffect, useState } from 'react'
 // import { DbQrData, QrDetails } from '@/utils/interface/qrInterface'
@@ -19,6 +20,7 @@ export default async function SurveyPage() {
         <CreateSurveyForm />
       </div>
       {/* <QRList items={data} /> */}
+      <SurveyList />
     </div>
   )
 }
